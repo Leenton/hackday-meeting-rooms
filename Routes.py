@@ -66,7 +66,7 @@ def office(office_id):
     get_office(office_id)
 
     office = Office()
-    return render_template("building.html", )
+    return render_template("building.html")
 
 intialize_database()
 
