@@ -1,1 +1,1 @@
-from .MeetingRoom import MeetingRoom
+from .MeetingRoom import MeetingRoom, get_meeting_room

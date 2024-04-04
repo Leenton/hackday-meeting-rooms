@@ -8,8 +8,6 @@ from Office import get_offices, get_office
 from Floor import get_floors, get_floor
 from MeetingRoom import MeetingRoom, get_meeting_room
 
-print("meow")
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "684a2c31fa1f159e791fbd0d01e4214c58b1ba170543bd7085dd61c722617f9f"
@@ -46,21 +44,6 @@ def intialize_database() -> None:
         c.close()
         conn.close()
 
-
-
-def get_issues_for_meeting_room(resolved:bool, meeting_room_id:int) -> list[Issue]:
-
-    conn = sqlite3.connect("data.db")
-    c = conn.cursor()
-    try:
-        c.execute("SELECT issue_note, author_email, created_date, is_resolved, fresh_ticket_id meeting_room_id FROM issues WHERE is_resolved = $1 AND meeting_room_id = $2", (int(resolved) , meeting_room_id))
-        issues = c.fetchall()
-        conn.close()
-        return [Issue(issue[0],issue[1],issue[2],issue[3],issue[4],issue[5]) for issue in issues]
-    except sqlite3.OperationalError:
-        conn.close()
-        return Issue(name="There are no issues", id=0)
-
 @app.route("/")
 def home_page():
     return render_template("home.html", title="Home", offices=get_offices()) 
@@ -71,10 +54,9 @@ def office_page(office_id):
     return render_template("office.html")
 
 @app.route("/meetingroom/<meeting_room_id>")
-def meeting_room_page(meeting_room_id):
-    return render_template("meetingroom.html")
+def meeting_room_page(meeting_room_id):    
+    return render_template("meetingroom.html", meeting_room=get_meeting_room(meeting_room_id))
     # meetingroom = get_meeting_room(meeting_room_id)
-
 
 #     return render_template("issues.html", title="Issues", issues=issues)
 intialize_database()
