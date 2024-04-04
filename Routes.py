@@ -71,7 +71,7 @@ def get_floors(office_id) -> list[Floor]:
     c = conn.cursor()      
     try:
         c.execute("SELECT meeting_room_floor_number FROM office_floors WHERE office_id = $1", (office_id,))
-        office = c.fetchall()
+        office_floors = c.fetchall()
         conn.close()
         return [Floor(office_floor[0], office_floor[1]) for office_floor in office_floors]
 
