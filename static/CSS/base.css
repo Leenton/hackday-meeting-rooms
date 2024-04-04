@@ -28,3 +28,26 @@ body{
 p{
     margin: 5px;
 }
+
+ul{
+    margin-top: 5vh;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font-size: x-large;
+}
