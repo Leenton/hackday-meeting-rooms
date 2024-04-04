@@ -8,6 +8,22 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "684a2c31fa1f159e791fbd0d01e4214c58b1ba170543bd7085dd61c722617f9f"
 
+
+#Check if data.db exists, if not create it
+if not os.path.exists("data.db"):
+    conn = sqlite3.connect("data.db")
+    c = conn.cursor()
+
+    #get the contents of the schema file
+    with open("schema.sql") as f:
+        schema = f.read()
+    
+    c.executescript(schema)
+    conn.commit()
+    conn.close()
+
+
+
 def get_offices() -> list[Office]:
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
