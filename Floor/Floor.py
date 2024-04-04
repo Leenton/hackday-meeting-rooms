@@ -1,14 +1,12 @@
 import sqlite3
+from MeetingRoom import MeetingRoom
 
-from Floor import Floor
-
-class MeetingRoom():
-    def __init__(self, id: int, name: str, floor: Floor):
+class Floor():
+    def __init__(self, id: int, floor_num: int):
         self.id = id
-        self.name = name
-        self.floor = floor
+        self.floor_num = floor_num
     
-    def get_Issues() -> list[Issue]:
+    def get_meeting_room() -> list[MeetingRoom]:
         conn = sqlite3.connect("data.db")
         c = conn.cursor()
         c.execute("SELECT issue_name, issue_id FROM issues WHERE room_id = ?", (self.id,))

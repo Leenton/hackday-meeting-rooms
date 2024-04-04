@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, session, j
 from os import path
 import sqlite3
 from Office import Office
+from Floor import Floor
 
 app = Flask(__name__)
 
@@ -56,6 +57,21 @@ def get_office(office_id: str) -> Office:
         conn.close()
         return Office(name="Cannot find office", id=0)
 
+def get_floors(office_id) -> list[Floor]:
+    conn = sqlite3.connect("data.db")
+    c = conn.cursor()      
+    try:
+        c.execute("SELECT meeting_room_floor_number FROM office_floors WHERE office_id = $1", (office_id,))
+        office = c.fetchall()
+        conn.close()
+        return [Floor(office_floor[0], office_floor[1]) for office_floor in office_floors]
+
+    except sqlite3.OperationalError:
+        # Make an error message that will be displayed in place of the office name
+        conn.close()
+        return Office(name="Cannot find office", id=0)
+
+
 @app.route("/")
 def home():
     return render_template("home.html", title="Home", offices=get_offices()) 
@@ -66,7 +82,7 @@ def office(office_id):
     get_office(office_id)
 
     office = Office()
-    return render_template("building.html")
+    return render_template("office.html")
 
 # @app.route("/meetingroom/<meeting_room_id>")
 # def meetingroom(meeting_room_id):
