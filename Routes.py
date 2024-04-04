@@ -48,6 +48,12 @@ def home():
 def anison():
     return render_template("building.html")
 
+# @app.route("/meetingroom/<meeting_room_id>")
+# def meetingroom(meeting_room_id):
+#     meetingroom = get_meeting_room(meeting_room_id)
+
+
+#     return render_template("issues.html", title="Issues", issues=issues)
 intialize_database()
 app.run(debug=True)
 
