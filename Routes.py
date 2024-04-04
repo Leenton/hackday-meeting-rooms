@@ -74,4 +74,4 @@ def meetingroom(meeting_room_id):
 #     return render_template("issues.html", title="Issues", issues=issues)
 intialize_database()
 
-
+app.run(debug=True)

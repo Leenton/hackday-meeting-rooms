@@ -9,13 +9,14 @@ def get_offices() -> list[Office]:
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
     try:
-        c.execute("SELECT office_name, office_id FROM offices")
+        c.execute("SELECT name, office_id FROM offices")
         offices = c.fetchall()
         conn.close()
 
         return [Office(office[0], office[1]) for office in offices]
-    except:
+    except Exception as e:
         conn.close()
+        print(e)
         raise Exception("Cannot find offices")
 
 def get_office(office_id: str) -> Office:
