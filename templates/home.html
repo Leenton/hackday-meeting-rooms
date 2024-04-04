@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>1984 - Meeting Room Tracker</h1>
+    <p>1984 is a meeting room tracker for Future, scan the QR code in the room to report an issue in a meeting room, or click on the meeting room in the drop down below.</p>
+    <url>
+        {% for office in offices %}
+            <li><a href="/office/{{office.id}}">{{ office.name }}</a></li>
+        {% endfor %}
+    </url>
+</body>
+</html>
