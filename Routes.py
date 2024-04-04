@@ -40,8 +40,6 @@ def intialize_database() -> None:
         c.close()
         conn.close()
 
-
-
 @app.route("/")
 def home():
     return render_template("home.html", title="Home", offices=get_offices()) 
@@ -51,9 +49,10 @@ def office_page(office_id):
     office = get_office(office_id)
     return render_template("office.html")
 
-# @app.route("/meetingroom/<meeting_room_id>")
-# def meetingroom(meeting_room_id):
-#     meetingroom = get_meeting_room(meeting_room_id)
+@app.route("/meetingroom/<meeting_room_id>")
+def meetingroom(meeting_room_id):
+    print("WOWOWOWO WEE WA")
+    # meetingroom = get_meeting_room(meeting_room_id)
 
 
 #     return render_template("issues.html", title="Issues", issues=issues)
