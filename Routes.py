@@ -6,6 +6,7 @@ import sqlite3
 from Issue import Issue
 from Office import get_offices, get_office
 from Floor import get_floors, get_floor
+from MeetingRoom import MeetingRoom, get_meeting_room
 
 print("meow")
 
@@ -59,7 +60,7 @@ def get_issues_for_meeting_room(resolved:bool, meeting_room_id:int) -> list[Issu
         return Issue(name="There are no issues", id=0)
 
 @app.route("/")
-def home():
+def home_page():
     return render_template("home.html", title="Home", offices=get_offices()) 
 
 @app.route("/offices/<office_id>")
@@ -68,8 +69,8 @@ def office_page(office_id):
     return render_template("office.html")
 
 @app.route("/meetingroom/<meeting_room_id>")
-def meetingroom(meeting_room_id):
-    print("WOWOWOWO WEE WA")
+def meeting_room_page(meeting_room_id):
+    return render_template("meetingroom.html")
     # meetingroom = get_meeting_room(meeting_room_id)
 
 

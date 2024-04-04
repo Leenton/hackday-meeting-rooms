@@ -16,4 +16,16 @@ class MeetingRoom():
         conn.close()
         
         return [Issue(issue[0], issue[1]) for issue in issues]
-        
+
+def get_meeting_room(meeting_room_id: int) -> MeetingRoom:
+    conn = sqlite3.connect("data.db")
+    c = conn.cursor()
+    
+    try:
+        c.execute("SELECT * FROM meeting_rooms WHERE meeting_room_id = ?", (meeting_room_id,))
+        meeting_room = c.fetchone()
+        conn.close()
+        return MeetingRoom(id = meeting_room[0], name=meeting_room[1], floor_id=meeting_room[2])
+    except:
+        conn.close()
+        raise Exception("Cannot find meeting room")
