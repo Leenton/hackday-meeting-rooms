@@ -61,12 +61,9 @@ def home():
     return render_template("home.html", title="Home", offices=get_offices()) 
 
 @app.route("/offices/<office_id>")
-def office(office_id):
-    # Get the office by id from the list of offices
-    get_office(office_id)
-
-    office = Office()
-    return render_template("building.html")
+def office_page(office_id):
+    office = get_office(office_id)
+    return render_template("building.html", office=office)
 
 # @app.route("/meetingroom/<meeting_room_id>")
 # def meetingroom(meeting_room_id):
