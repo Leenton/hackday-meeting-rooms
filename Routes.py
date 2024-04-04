@@ -3,8 +3,8 @@ import qrcode
 import qrcode.image.svg
 from os import path
 import sqlite3
-from Office import Office
-from Floor import Floor
+from Office import get_offices, get_office
+from Floor import get_floors, get_floor
 
 app = Flask(__name__)
 
@@ -40,46 +40,6 @@ def intialize_database() -> None:
         c.close()
         conn.close()
 
-def get_offices() -> list[Office]:
-    conn = sqlite3.connect("data.db")
-    c = conn.cursor()
-    try:
-        c.execute("SELECT office_name, office_id FROM offices")
-        offices = c.fetchall()
-        conn.close()
-
-        return [Office(office[0], office[1]) for office in offices]
-    except:
-        conn.close()
-        raise Exception("Cannot find offices")
-
-def get_office(office_id: str) -> Office:
-    # Grabs an office by ID.
-    conn = sqlite3.connect("data.db")
-    c = conn.cursor()
-    
-    try:
-        c.execute("SELECT * FROM offices WHERE office_id = $1", (office_id,))
-        office = c.fetchone()
-        print(office)
-        conn.close()
-        return Office(name = office[0], id=office[1])
-    except:
-        conn.close()
-        raise Exception("Cannot find office")
-
-def get_floors(office_id) -> list[Floor]:
-    conn = sqlite3.connect("data.db")
-    c = conn.cursor()      
-    try:
-        c.execute("SELECT meeting_room_floor_number FROM office_floors WHERE office_id = $1", (office_id,))
-        office_floors = c.fetchall()
-        conn.close()
-        return [Floor(office_floor[0], office_floor[1]) for office_floor in office_floors]
-
-    except:
-        conn.close()
-        raise Exception("Cannot find floors")
 
 
 @app.route("/")
