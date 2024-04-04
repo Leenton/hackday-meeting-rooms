@@ -1,0 +1,18 @@
+<!doctype html>
+<htmlm lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/base.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        <p>This is a project made on Hackday 2024, by leenton, ollie, sonny, and ash. Vote for leenton in the Tech and Engineering Awards!</p>
+        <p>If you need help or support or something is broken email, ryan.white@futurenet.com, ash.smith@futurenet.com, leenton.chinyanga@futurenet.com</p>
+      {% block footer %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
