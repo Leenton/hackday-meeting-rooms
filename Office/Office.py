@@ -3,7 +3,7 @@ import sqlite3
 class Office():
     def __init__(self, name: str, id: int):
         self.name = name
-        self.office_id = id
+        self.id = id
 
 def get_offices() -> list[Office]:
     conn = sqlite3.connect("data.db")
@@ -19,7 +19,7 @@ def get_offices() -> list[Office]:
         print(e)
         raise Exception("Cannot find offices")
 
-def get_office(office_id: str) -> Office:
+def get_office(office_id: int) -> Office:
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
     

@@ -18,8 +18,6 @@ def generate_qr_code(path: str) -> str:
     img = qrcode.make((DOMAIN_NAME + path), image_factory=qrcode.image.svg.SvgImage)
     return img.to_string()
 
-
-
 def intialize_database() -> None:
     if not path.exists("data.db"):
         conn = sqlite3.connect("data.db")
@@ -46,19 +44,41 @@ def intialize_database() -> None:
 
 @app.route("/")
 def home_page():
-    return render_template("home.html", title="Home", offices=get_offices()) 
+    try:
+        return render_template("home.html", title="Home", offices=get_offices()) 
+    except:
+        return redirect(url_for("error_page"))
 
-@app.route("/offices/<office_id>")
+@app.route('/offices/<office_id>')
 def office_page(office_id):
-    office = get_office(office_id)
-    return render_template("office.html")
+    try:
+        return render_template("office.html", office=get_office(office_id))
+    except:
+        return redirect(url_for("error_page"))
 
 @app.route("/meetingroom/<meeting_room_id>")
-def meeting_room_page(meeting_room_id):    
-    return render_template("meetingroom.html", meeting_room=get_meeting_room(meeting_room_id))
-    # meetingroom = get_meeting_room(meeting_room_id)
+def meeting_room_page(meeting_room_id):
+    try:
+        return render_template("meetingroom.html", meeting_room=get_meeting_room(meeting_room_id))
+    except:
+        return redirect(url_for("error_page"))
+    
+@app.route("/issues/<issue_id>")
+def issue_page(issue_id):
+    try:
+        return render_template("issue.html", issue=Issue(issue_id))
+    except:
+        return redirect(url_for("error_page"))
 
-#     return render_template("issues.html", title="Issues", issues=issues)
-intialize_database()
+
+@app.route("/error")
+def error_page():
+    print("")
+    return render_template("error.html")
+    
+
+
+
+# intialize_database()
 
 app.run(debug=True)
