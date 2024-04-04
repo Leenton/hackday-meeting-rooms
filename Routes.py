@@ -7,6 +7,8 @@ from Issue import Issue
 from Office import get_offices, get_office
 from Floor import get_floors, get_floor
 
+print("meow")
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "684a2c31fa1f159e791fbd0d01e4214c58b1ba170543bd7085dd61c722617f9f"
