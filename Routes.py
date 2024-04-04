@@ -5,6 +5,7 @@ from os import path
 import sqlite3
 from Office import Office
 from Floor import Floor
+from Issue import Issue
 
 app = Flask(__name__)
 
@@ -80,6 +81,19 @@ def get_floors(office_id) -> list[Floor]:
         conn.close()
         return Office(name="Cannot find office", id=0)
 
+
+def get_issues_for_meeting_room(resolved:bool, meeting_room_id:int) -> list[Issue]:
+
+    conn = sqlite3.connect("data.db")
+    c = conn.cursor()
+    try:
+        c.execute("SELECT issue_note, author_email, created_date, is_resolved, fresh_ticket_id meeting_room_id FROM issues WHERE is_resolved = $1 AND meeting_room_id = $2", (int(resolved) , meeting_room_id))
+        issues = c.fetchall()
+        conn.close()
+        return [Issue(issue[0],issue[1],issue[2],issue[3],issue[4],issue[5]) for issue in issues]
+    except sqlite3.OperationalError:
+        conn.close()
+        return Issue(name="There are no issues", id=0)
 
 @app.route("/")
 def home():
