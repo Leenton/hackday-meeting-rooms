@@ -40,11 +40,11 @@ def get_offices() -> list[Office]:
 
     return [Office(office[0], office[1]) for office in offices]
 
-@app.route("/",  methods=["GET"])
+@app.route("/")
 def home():
     return render_template("home.html", title="Home", offices=get_offices()) 
 
-@app.route("/building/<>",  methods=['GET'])
+@app.route("/building/<>")
 def anison():
     return render_template("building.html")
 
