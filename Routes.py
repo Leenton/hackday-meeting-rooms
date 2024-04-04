@@ -20,6 +20,8 @@ def generate_qr_code(path: str) -> str:
     img = qrcode.make((DOMAIN_NAME + path), image_factory=qrcode.image.svg.SvgImage)
     return img.to_string()
 
+
+
 def intialize_database() -> None:
     if not path.exists("data.db"):
         conn = sqlite3.connect("data.db")
