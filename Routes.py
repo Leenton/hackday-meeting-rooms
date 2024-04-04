@@ -1,4 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request, session, jsonify, json
+import qrcode
+import qrcode.image.svg
 from os import path
 import sqlite3
 from Office import Office
@@ -6,6 +8,13 @@ from Office import Office
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "684a2c31fa1f159e791fbd0d01e4214c58b1ba170543bd7085dd61c722617f9f"
+
+DOMAIN_NAME = "localhost:5000"
+
+def generate_qr_code(path: str) -> str:
+    img = qrcode.make((DOMAIN_NAME + path), image_factory=qrcode.image.svg.SvgImage)
+    return img.to_string()
+
 
 def intialize_database() -> None:
     if not path.exists("data.db"):
