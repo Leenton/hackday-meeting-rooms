@@ -16,7 +16,6 @@ def generate_qr_code(path: str) -> str:
     img = qrcode.make((DOMAIN_NAME + path), image_factory=qrcode.image.svg.SvgImage)
     return img.to_string()
 
-
 def intialize_database() -> None:
     if not path.exists("data.db"):
         conn = sqlite3.connect("data.db")
@@ -44,11 +43,15 @@ def intialize_database() -> None:
 def get_offices() -> list[Office]:
     conn = sqlite3.connect("data.db")
     c = conn.cursor()
-    c.execute("SELECT office_name, office_id FROM offices")
-    offices = c.fetchall()
-    conn.close()
+    try:
+        c.execute("SELECT office_name, office_id FROM offices")
+        offices = c.fetchall()
+        conn.close()
 
-    return [Office(office[0], office[1]) for office in offices]
+        return [Office(office[0], office[1]) for office in offices]
+    except:
+        conn.close()
+        raise Exception("Cannot find offices")
 
 def get_office(office_id: str) -> Office:
     # Grabs an office by ID.
@@ -61,10 +64,9 @@ def get_office(office_id: str) -> Office:
         print(office)
         conn.close()
         return Office(name = office[0], id=office[1])
-    except sqlite3.OperationalError:
-        # Make an error message that will be displayed in place of the office name
+    except:
         conn.close()
-        return Office(name="Cannot find office", id=0)
+        raise Exception("Cannot find office")
 
 def get_floors(office_id) -> list[Floor]:
     conn = sqlite3.connect("data.db")
@@ -75,10 +77,9 @@ def get_floors(office_id) -> list[Floor]:
         conn.close()
         return [Floor(office_floor[0], office_floor[1]) for office_floor in office_floors]
 
-    except sqlite3.OperationalError:
-        # Make an error message that will be displayed in place of the office name
+    except:
         conn.close()
-        return Office(name="Cannot find office", id=0)
+        raise Exception("Cannot find floors")
 
 
 @app.route("/")
