@@ -15,7 +15,7 @@ def get_offices() -> list[Office]:
     offices = c.fetchall()
     conn.close()
 
-    return [Office(office[1], office[0]) for office in offices]
+    return [Office(office[0], office[1]) for office in offices]
 
 @app.route("/",  methods=["GET"])
 def home():
@@ -24,10 +24,6 @@ def home():
 @app.route("/building/<>",  methods=['GET'])
 def anison():
     return render_template("building.html")
-
-# @app.route("/meetingroom/<id>",  methods=['GET', 'POST'])
-# def tournament():
-#     return render_template("meetingroom.html")
 
 app.run(debug=True)
 
