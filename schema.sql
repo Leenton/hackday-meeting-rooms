@@ -16,12 +16,13 @@ CREATE TABLE IF NOT EXISTS meeting_rooms (
 );
 
 CREATE TABLE IF NOT EXISTS issues (
-    meeting_room_id INTEGER PRIMARY KEY,
+    issue_id INTEGER PRIMARY KEY,
+    meeting_room_id INTEGER KEY,
     author_email TEXT NOT NULL,
     issue_note TEXT,
-    -- Store date as ISO8608
-    created_date TEXT,
+    -- Store date as UNIX timestamp
+    created_date INTEGER,
     is_resolved INTEGER,
     fresh_ticket_id INTEGER,
-  	FOREIGN KEY (meeting_room_id) REFERENCES meeting_room(meeting_room_id)
+  	FOREIGN KEY (meeting_room_id) REFERENCES meeting_rooms(meeting_room_id)
 );

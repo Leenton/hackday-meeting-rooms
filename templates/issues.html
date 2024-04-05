@@ -1,0 +1,6 @@
+{% for issue in issues %}
+<div class="issue">
+    <h3>{{ issue.note }}</h3>
+    <p>{{ issue.created_date.strftime("%Y-%m-%d %H:%M") }}</p>
+</div>
+{% endfor %}

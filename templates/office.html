@@ -1,24 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Buildings{% endblock %}
+{% block title %}1984 | {{ office.name }}{% endblock %}
 {% block content %}
 
-
-List all the floors for this building. 
-
-On each floor list all the meeting rooms for that floor.
-
-href="/office/{{office.id}}"
-
-
-<h1>1984 - Meeting Room Tracker</h1>
-<p>1984 is a meeting room tracker for Future, scan the QR code in the room to report an issue in a meeting room, or click on the meeting room in the drop down below.</p>
+<h1>{{ office.name }} Meeting Rooms</h1>
 <div>
-    {% for office_floor in office_floors %}
+    {% for office_floor in office.get_floors() %}
         <div>
-            <h2>office_floor.name</h2>
+            <h2>Floor: {{office_floor.floor_num}}</h2>
             <div>
                 {% for meeting_room in office_floor.get_meeting_rooms() %}
-                    <a href="/meeting_room/{{meeting_room.id}}">{{ meeting_room.name }}</a>
+                    <a href="/meetingroom/{{meeting_room.id}}">{{ meeting_room.name }}</a>
                 {% endfor %}
             </div>
         </div>
