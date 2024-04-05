@@ -1,11 +1,14 @@
 {% extends "base.html" %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='CSS/home.css') }}">{% endblock %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<h1>1984 - Meeting Room Tracker</h1>
-<p>1984 is a meeting room tracker for Future, scan the QR code in the room to report an issue in a meeting room, or click on the meeting room in the drop down below.</p>
-<ul>
+<div class="title">
+    <h1>1984 - Meeting Room Tracker</h1>
+    <p>Scan the QR code in the room to report an issue in a meeting room, or find the meeting room in one of the offices listed below.</p>
+</div>
+<div class="offices">
     {% for office in offices %}
-        <li><a href="/offices/{{office.id}}">{{ office.name }}</a></li>
+        <a href="/offices/{{office.id}}">{{ office.name }}</a>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

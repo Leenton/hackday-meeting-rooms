@@ -1,0 +1,77 @@
+.title h1{
+    text-align: center;
+    margin-top: 5vh;
+}
+.title h2{
+    text-align: center;
+}
+.title p{
+    max-width: 60%;
+    margin: auto;
+    text-align: center;
+    line-height: 2rem;
+}
+
+.issues-container{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#report-form{
+    display: grid;
+    grid-template-columns: 5fr 3fr 2fr;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#report-form input{
+    padding: 0.75rem;
+    border: none;
+}
+
+
+.view-selector{
+    display: flex;
+    margin: 1rem;
+    justify-content: space-around;
+}
+
+.view-selector button{
+    background-color: var(--background-colour);
+    font-size: 1.25rem;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-bottom: 0.25rem solid var(--background-colour);
+}
+
+.view-selector button:hover{
+    color: var(--font-hover-colour);
+    border-bottom: 0.25rem solid var(--font-hover-colour);
+}
+
+#issue-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.issue{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--background-hover-colour);
+}
+
+.resolved{
+    background-color: #a4a4a4;
+}
+
+.issue .time{
+    font-size: 0.75rem;
+    font-weight: bold;
+    font-style: italic;
+}

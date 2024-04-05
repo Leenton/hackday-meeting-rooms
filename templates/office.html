@@ -1,13 +1,17 @@
 {% extends "base.html" %}
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='CSS/office.css') }}">{% endblock %}
 {% block title %}1984 | {{ office.name }}{% endblock %}
 {% block content %}
 
-<h1>{{ office.name }} Meeting Rooms</h1>
-<div>
+<div class="title">
+    <h1>{{ office.name }} Meeting Rooms</h1>
+    <p>You can report an issue in a meeting room by scanning the QR code in the room, or by clicking on the meeting room below.</p>
+</div>
+<div class="floors-container">
     {% for office_floor in office.get_floors() %}
-        <div>
+        <div class="floor">
             <h2>Floor: {{office_floor.floor_num}}</h2>
-            <div>
+            <div class="rooms">
                 {% for meeting_room in office_floor.get_meeting_rooms() %}
                     <a href="/meetingroom/{{meeting_room.id}}">{{ meeting_room.name }}</a>
                 {% endfor %}
